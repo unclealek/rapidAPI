@@ -29,8 +29,18 @@ def save_data():
         json.dump(events_data, f, indent=2)
 
 def parse_csv_line(line: str) -> Dict[str, Any]:
-    """Parse a single line of CSV data"""
-    parts = line.strip().split()
+    """Parse a single line of CSV data (supports both comma and space separated)"""
+    line = line.strip()
+    if not line:
+        return None
+    
+    # Try comma-separated first (standard CSV format)
+    if ',' in line:
+        parts = [part.strip() for part in line.split(',')]
+    else:
+        # Fall back to space-separated for backward compatibility
+        parts = line.split()
+    
     if len(parts) >= 3:
         return {
             "user_id": parts[0],

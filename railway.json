@@ -4,7 +4,7 @@
       "builder": "nixpacks"
     },
     "deploy": {
-      "startCommand": "gunicorn app:app",
+      "startCommand": "gunicorn api:app",
       "healthcheckPath": "/"
     }
   }
